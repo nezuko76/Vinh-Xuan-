@@ -1,0 +1,377 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Lab04_Bài_Tập4
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void txtSonguyen_TextChanged(object sender, EventArgs e)
+        {
+            TextBox txtSonguyen = (TextBox)sender;
+            if (txtSonguyen.Text.Length > 0)
+            {
+                if (!char.IsDigit(txtSonguyen.Text[txtSonguyen.Text.Length - 1]))
+                {
+                    this.errSonguyen.SetError(txtSonguyen, "Vui lòng nhập số nguyên");
+                }
+                else
+                {
+                    this.errSonguyen.Clear();
+                }
+            }
+            else
+            {              
+                this.errSonguyen.Clear();
+            }
+        }
+
+        private void frmThaotactrenListbox_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Bạn muốn thoát?", "Thông báo", MessageBoxButtons.YesNo,
+MessageBoxIcon.Question) == DialogResult.No)
+                e.Cancel = true;
+
+        }
+
+        private void btnCapnhat_Click(object sender, EventArgs e)
+        {
+            lstKetqua.Items.Add(txtSonguyen.Text);
+            txtSonguyen.Text = "";
+            txtSonguyen.Focus();
+
+        }
+
+        private void btnTang2_Click(object sender, EventArgs e)
+        {
+            int n = lstKetqua.Items.Count; 
+            for (int i = 0; i < n; i++)
+            {
+                int tam = int.Parse(lstKetqua.Items[i].ToString()) + 2;
+                lstKetqua.Items.RemoveAt(i);
+                lstKetqua.Items.Insert(i, tam.ToString());
+            }
+            }
+
+        private void btnChonchandau_Click(object sender, EventArgs e)
+        {
+            int n = lstKetqua.Items.Count; 
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (int.Parse(lstKetqua.Items[i].ToString()) % 2 == 0)
+                {
+                    string s = lstKetqua.Items[i].ToString();
+                    lstKetqua.SelectedItem = s;
+                    break; 
+                }
+            }
+
+        }
+
+        private void btnLecuoi_Click(object sender, EventArgs e)
+        {
+            int n = lstKetqua.Items.Count; 
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if (int.Parse(lstKetqua.Items[i].ToString()) % 2 == 1)
+                {
+                    string s = lstKetqua.Items[i].ToString();
+                    lstKetqua.SelectedItem = s;
+                    break; 
+                }
+            }
+
+        }
+
+        private void btnXoaphantudangchon_Click(object sender, EventArgs e)
+        {
+            int n = lstKetqua.SelectedItems.Count; 
+            for (int i = n - 1; i >= 0; i--)
+                lstKetqua.Items.Remove(lstKetqua.SelectedItems[i].ToString());
+
+        }
+
+        private void btnXoaphantudau_Click(object sender, EventArgs e)
+        {
+            lstKetqua.Items.Remove(lstKetqua.Items[0].ToString());
+        }
+
+        private void btnXoaphantucuoi_Click(object sender, EventArgs e)
+        {
+            int n = lstKetqua.Items.Count;
+            lstKetqua.Items.Remove(lstKetqua.Items[n - 1].ToString());
+
+        }
+
+        private void btnKetthuc_Click(object sender, EventArgs e)
+        {
+            this.Close(); 
+        }
+
+        private void txtSonguyen_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+            }
+
+        private void txtSonguyen_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!string.IsNullOrEmpty(txtSonguyen.Text) && int.TryParse(txtSonguyen.Text, out int result))
+                {                   
+                    lstKetqua.Items.Add(txtSonguyen.Text);
+                    txtSonguyen.Clear();
+                    txtSonguyen.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng nhập số nguyên hợp lệ.");
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+namespace Lab04_Bài_Tập4
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtSonguyen = new System.Windows.Forms.TextBox();
+            this.btnCapnhat = new System.Windows.Forms.Button();
+            this.lstKetqua = new System.Windows.Forms.ListBox();
+            this.btnTang2 = new System.Windows.Forms.Button();
+            this.btnChonchandau = new System.Windows.Forms.Button();
+            this.btnLecuoi = new System.Windows.Forms.Button();
+            this.btnXoaphantudangchon = new System.Windows.Forms.Button();
+            this.btnXoaphantucuoi = new System.Windows.Forms.Button();
+            this.btnXoaphantudau = new System.Windows.Forms.Button();
+            this.btnKetthuc = new System.Windows.Forms.Button();
+            this.errSonguyen = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errSonguyen)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(47, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(176, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nhập Số Nguyên";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(378, 137);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(101, 20);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Chức Năng";
+            // 
+            // txtSonguyen
+            // 
+            this.txtSonguyen.Location = new System.Drawing.Point(229, 50);
+            this.txtSonguyen.Multiline = true;
+            this.txtSonguyen.Name = "txtSonguyen";
+            this.txtSonguyen.Size = new System.Drawing.Size(250, 28);
+            this.txtSonguyen.TabIndex = 2;
+            this.txtSonguyen.TextChanged += new System.EventHandler(this.txtSonguyen_TextChanged);
+            this.txtSonguyen.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSonguyen_KeyDown);
+            this.txtSonguyen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSonguyen_KeyPress);
+            // 
+            // btnCapnhat
+            // 
+            this.btnCapnhat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCapnhat.Location = new System.Drawing.Point(520, 46);
+            this.btnCapnhat.Name = "btnCapnhat";
+            this.btnCapnhat.Size = new System.Drawing.Size(137, 32);
+            this.btnCapnhat.TabIndex = 3;
+            this.btnCapnhat.Text = "Cập Nhật";
+            this.btnCapnhat.UseVisualStyleBackColor = true;
+            this.btnCapnhat.Click += new System.EventHandler(this.btnCapnhat_Click);
+            // 
+            // lstKetqua
+            // 
+            this.lstKetqua.FormattingEnabled = true;
+            this.lstKetqua.ItemHeight = 16;
+            this.lstKetqua.Location = new System.Drawing.Point(107, 137);
+            this.lstKetqua.Name = "lstKetqua";
+            this.lstKetqua.Size = new System.Drawing.Size(198, 340);
+            this.lstKetqua.TabIndex = 4;
+            // 
+            // btnTang2
+            // 
+            this.btnTang2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTang2.Location = new System.Drawing.Point(382, 175);
+            this.btnTang2.Name = "btnTang2";
+            this.btnTang2.Size = new System.Drawing.Size(275, 27);
+            this.btnTang2.TabIndex = 5;
+            this.btnTang2.Text = "Tăng mỗi phần tử lên 2";
+            this.btnTang2.UseVisualStyleBackColor = true;
+            this.btnTang2.Click += new System.EventHandler(this.btnTang2_Click);
+            // 
+            // btnChonchandau
+            // 
+            this.btnChonchandau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChonchandau.Location = new System.Drawing.Point(382, 233);
+            this.btnChonchandau.Name = "btnChonchandau";
+            this.btnChonchandau.Size = new System.Drawing.Size(275, 27);
+            this.btnChonchandau.TabIndex = 6;
+            this.btnChonchandau.Text = "Chọn số chẵn đầu";
+            this.btnChonchandau.UseVisualStyleBackColor = true;
+            this.btnChonchandau.Click += new System.EventHandler(this.btnChonchandau_Click);
+            // 
+            // btnLecuoi
+            // 
+            this.btnLecuoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLecuoi.Location = new System.Drawing.Point(382, 291);
+            this.btnLecuoi.Name = "btnLecuoi";
+            this.btnLecuoi.Size = new System.Drawing.Size(275, 27);
+            this.btnLecuoi.TabIndex = 7;
+            this.btnLecuoi.Text = "Chọn số lẻ cuối";
+            this.btnLecuoi.UseVisualStyleBackColor = true;
+            this.btnLecuoi.Click += new System.EventHandler(this.btnLecuoi_Click);
+            // 
+            // btnXoaphantudangchon
+            // 
+            this.btnXoaphantudangchon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoaphantudangchon.Location = new System.Drawing.Point(382, 348);
+            this.btnXoaphantudangchon.Name = "btnXoaphantudangchon";
+            this.btnXoaphantudangchon.Size = new System.Drawing.Size(275, 27);
+            this.btnXoaphantudangchon.TabIndex = 8;
+            this.btnXoaphantudangchon.Text = "Xóa phần tử đang chọn";
+            this.btnXoaphantudangchon.UseVisualStyleBackColor = true;
+            this.btnXoaphantudangchon.Click += new System.EventHandler(this.btnXoaphantudangchon_Click);
+            // 
+            // btnXoaphantucuoi
+            // 
+            this.btnXoaphantucuoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoaphantucuoi.Location = new System.Drawing.Point(382, 448);
+            this.btnXoaphantucuoi.Name = "btnXoaphantucuoi";
+            this.btnXoaphantucuoi.Size = new System.Drawing.Size(275, 29);
+            this.btnXoaphantucuoi.TabIndex = 9;
+            this.btnXoaphantucuoi.Text = "Xóa phần tử cuối";
+            this.btnXoaphantucuoi.UseVisualStyleBackColor = true;
+            this.btnXoaphantucuoi.Click += new System.EventHandler(this.btnXoaphantucuoi_Click);
+            // 
+            // btnXoaphantudau
+            // 
+            this.btnXoaphantudau.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoaphantudau.Location = new System.Drawing.Point(382, 397);
+            this.btnXoaphantudau.Name = "btnXoaphantudau";
+            this.btnXoaphantudau.Size = new System.Drawing.Size(275, 27);
+            this.btnXoaphantudau.TabIndex = 10;
+            this.btnXoaphantudau.Text = "Xóa phần tử đầu";
+            this.btnXoaphantudau.UseVisualStyleBackColor = true;
+            this.btnXoaphantudau.Click += new System.EventHandler(this.btnXoaphantudau_Click);
+            // 
+            // btnKetthuc
+            // 
+            this.btnKetthuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKetthuc.Location = new System.Drawing.Point(52, 561);
+            this.btnKetthuc.Name = "btnKetthuc";
+            this.btnKetthuc.Size = new System.Drawing.Size(605, 29);
+            this.btnKetthuc.TabIndex = 11;
+            this.btnKetthuc.Text = "Kết Thúc";
+            this.btnKetthuc.UseVisualStyleBackColor = true;
+            this.btnKetthuc.Click += new System.EventHandler(this.btnKetthuc_Click);
+            // 
+            // errSonguyen
+            // 
+            this.errSonguyen.ContainerControl = this;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 602);
+            this.Controls.Add(this.btnKetthuc);
+            this.Controls.Add(this.btnXoaphantudau);
+            this.Controls.Add(this.btnXoaphantucuoi);
+            this.Controls.Add(this.btnXoaphantudangchon);
+            this.Controls.Add(this.btnLecuoi);
+            this.Controls.Add(this.btnChonchandau);
+            this.Controls.Add(this.btnTang2);
+            this.Controls.Add(this.lstKetqua);
+            this.Controls.Add(this.btnCapnhat);
+            this.Controls.Add(this.txtSonguyen);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmThaotactrenListbox_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.errSonguyen)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtSonguyen;
+        private System.Windows.Forms.Button btnCapnhat;
+        private System.Windows.Forms.ListBox lstKetqua;
+        private System.Windows.Forms.Button btnTang2;
+        private System.Windows.Forms.Button btnChonchandau;
+        private System.Windows.Forms.Button btnLecuoi;
+        private System.Windows.Forms.Button btnXoaphantudangchon;
+        private System.Windows.Forms.Button btnXoaphantucuoi;
+        private System.Windows.Forms.Button btnXoaphantudau;
+        private System.Windows.Forms.Button btnKetthuc;
+        private System.Windows.Forms.ErrorProvider errSonguyen;
+       
+    }
+}
+
